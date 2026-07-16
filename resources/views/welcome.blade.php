@@ -79,7 +79,8 @@
           </div>
           <div class="hero__figglow"></div>
           <div class="hero__figplate">
-            <strong>Stanley Durosier (Tycoon $tan)</strong>
+            <strong>Stanley Durosier</strong>
+            <span class="hero__figalias">Tycoon $tan</span>
             <span>Founder &amp; Chief Strategist</span>
           </div>
         </div>
