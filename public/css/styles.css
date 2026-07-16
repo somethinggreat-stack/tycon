@@ -949,7 +949,9 @@ body::after {
 }
 .remove__grid {
   position: relative; z-index: 2;
-  display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px;
+  /* minmax(0,…) not 1fr: plain 1fr floors each column at its longest word
+     ("Repossessions", "Identity Theft Items"), which overflows the row. */
+  display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px;
 }
 /* center the last two cards on the 4-column desktop grid (14 items → last row has 2) */
 @media (min-width: 901px) {
@@ -957,6 +959,7 @@ body::after {
 }
 .rem-item {
   display: flex; align-items: center; gap: 14px; padding: 20px 22px;
+  min-width: 0; /* let the card shrink inside its grid track instead of overflowing */
   border-radius: 16px; border: 1px solid var(--line-soft);
   background: rgba(16,41,79,0.28);
   transition: transform .45s var(--ease), border-color .45s var(--ease), background .45s var(--ease);
@@ -970,6 +973,7 @@ body::after {
 .rem-item__name {
   font-family: var(--font-display); font-weight: 600; font-size: 1rem;
   transition: color .45s var(--ease); position: relative;
+  min-width: 0; overflow-wrap: break-word;
 }
 .rem-item__name::after {
   content:''; position: absolute; left: 0; top: 50%; height: 2px; width: 0;
@@ -1551,7 +1555,7 @@ body::after {
   .hero__bgimg img { width: 100%; min-width: 0; opacity: 0.2; object-position: center; }
   .hero__bgimg::after { background: linear-gradient(180deg, rgba(6,15,38,0.72), rgba(6,15,38,0.55)); }
 
-  .remove__grid { grid-template-columns: repeat(2, 1fr); }
+  .remove__grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .results__grid { grid-template-columns: repeat(2, 1fr); }
   .pillars__grid, .testi__grid { grid-template-columns: 1fr; max-width: 480px; margin: 0 auto; }
   .hpanel { grid-template-columns: 1fr; gap: 28px; padding: 34px; }
@@ -1561,16 +1565,23 @@ body::after {
   .method { grid-template-columns: 1fr 1fr; gap: 18px; }
   .difference__cards { grid-template-columns: 1fr 1fr; }
 
-  /* nav → slide-in mobile menu */
+  /* nav → drops down from the top, clearing the fixed header */
   .nav__links {
-    position: fixed; inset: 0 0 0 auto; width: min(82vw, 340px); border-radius: 0;
-    flex-direction: column; align-items: flex-start; justify-content: center; gap: 6px;
-    padding: 40px; background: rgba(6,15,38,0.98); backdrop-filter: blur(20px);
-    border-left: 1px solid var(--line-soft);
-    transform: translateX(100%); transition: transform .5s var(--ease);
+    position: fixed; top: 0; left: 0; right: 0; width: auto;
+    border-radius: 0 0 20px 20px;
+    flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 6px;
+    padding: 92px 18px 24px;
+    background: rgba(6,15,38,0.98); backdrop-filter: blur(20px);
+    border: 1px solid var(--line-soft); border-top: 0;
+    box-shadow: 0 34px 70px -26px rgba(0,0,0,0.85);
+    max-height: 100vh; overflow-y: auto;
+    transform: translateY(-100%); transition: transform .5s var(--ease);
   }
-  .nav__links.open { transform: translateX(0); }
-  .nav__links > a { width: 100%; font-size: 1.05rem; padding: 14px 16px; }
+  .nav__links.open { transform: translateY(0); }
+  /* keep the logo above the panel — it drops over the header, and only the
+     toggle carries a z-index, so the brand would otherwise be covered */
+  .nav__brand { position: relative; z-index: 20; }
+  .nav__links > a { width: 100%; font-size: 1.05rem; padding: 14px 16px; text-align: center; }
   .nav__cta { margin-left: 0; margin-top: 14px; text-align: center; justify-content: center; }
   .nav__toggle { display: flex; }
 }
@@ -1584,7 +1595,9 @@ body::after {
 /* ===== Mobile ===== */
 @media (max-width: 560px) {
   .container { padding: 0 18px; }
-  .nav__logo { height: 54px; }
+  /* logo is 2.26:1 — only ever constrain height, never both dimensions */
+  .nav__logo { height: 50px; width: auto; }
+  .nav.scrolled .nav__logo { height: 44px; }
   .section-lead { font-size: 1rem; }
   .cta__form { grid-template-columns: 1fr; }
   .difference__cards { grid-template-columns: 1fr; }
@@ -1620,12 +1633,18 @@ body::after {
   .floating-cta span { display: none; }
   .to-top { width: 44px; height: 44px; bottom: 20px; left: 18px; }
   .nav__wordmark em { display: none; }
-  .nav__logo { width: 42px; height: 42px; }
+
+  /* "What We Remove" — 2 per row, both fully visible */
+  .remove__grid { gap: 12px; }
+  .rem-item { gap: 10px; padding: 14px 12px; border-radius: 14px; }
+  .rem-item__x { width: 28px; height: 28px; border-radius: 8px; font-size: 0.78rem; }
+  .rem-item__name { font-size: 0.86rem; line-height: 1.3; }
 }
 
 /* ===== Small phones ===== */
 @media (max-width: 400px) {
-  .remove__grid { grid-template-columns: 1fr; }
+  /* stays 2-up — the tighter card below is what makes both fit */
+  .remove__grid { gap: 10px; }
   .section-title { font-size: 1.65rem; }
   .hnode { width: auto; }
   .hnode__label { font-size: 0.64rem; max-width: 80px; }
