@@ -38,6 +38,10 @@
 
 /* ---------- RESET ---------- */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+/* The browser's [hidden] rule is a UA style, so any author `display` beats it —
+   .quiz__back sets display:inline-flex, which left the JS-driven `hidden`
+   with no effect and pinned "Back" on step 1 of every form. */
+[hidden] { display: none !important; }
 html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
 body {
   font-family: var(--font-body);
@@ -1831,13 +1835,33 @@ body::after {
 @keyframes modalUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
 
 @media (max-width: 720px) {
-  .modal__card { grid-template-columns: 1fr; width: min(440px, 100%); max-height: 92vh; overflow-y: auto; }
-  .modal__aside { min-height: 190px; padding: 22px 26px 24px; }
-  .modal__photo { object-position: 50% 16%; transform: scale(1.04); transform-origin: 50% 30%; }
-  .modal__aside-overlay { background: linear-gradient(180deg, rgba(6,15,38,0.35), rgba(6,15,38,0.55) 55%, rgba(6,15,38,0.96)); }
-  .modal__quote { display: none; }
-  .modal__aside-bottom { flex-direction: row; align-items: flex-end; justify-content: space-between; }
-  .modal__body { padding: 32px 28px 28px; }
+  .modal { padding: 12px; }
+  .modal__card {
+    grid-template-columns: 1fr; width: min(460px, 100%);
+    max-height: 92vh; max-height: 92dvh;   /* dvh: phone toolbars shrink the viewport */
+    overflow-y: auto; overscroll-behavior: contain;
+    border-radius: 22px;
+  }
+  .modal__card::after { border-radius: 22px; }
+
+  /* No photo header on mobile. Stacked, it cropped the founder's face and
+     forced the stat and his name into a squeezed side-by-side row. The quiz
+     is what converts — give it the whole card. */
+  .modal__aside { display: none; }
+
+  .modal__body { padding: 26px 18px 22px; }
+  .quiz__head { padding-right: 46px; margin-bottom: 18px; }  /* clear the close button */
+  .quiz__q { font-size: 1.2rem; margin-bottom: 16px; }
+  /* must be >= 16px or iOS Safari zooms the whole page when a field is focused */
+  .quiz__field input, .quiz__field textarea { font-size: 16px; }
+  .quiz__opt { padding: 13px 14px; }
+}
+
+@media (max-width: 400px) {
+  .modal__body { padding: 24px 14px 20px; }
+  .quiz__q { font-size: 1.1rem; }
+  .quiz__opt { gap: 11px; padding: 12px; font-size: 0.92rem; }
+  .quiz__opt-emoji { width: 36px; height: 36px; font-size: 1.05rem; }
 }
 
 /* ---------- REDUCED MOTION ---------- */

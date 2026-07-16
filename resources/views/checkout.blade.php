@@ -23,6 +23,9 @@
     --fd:'Sora',sans-serif; --fb:'Plus Jakarta Sans',sans-serif;
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  /* author `display` beats the UA [hidden] rule — without this, #scoreBox stays
+     visible on plans where the script sets hidden (e.g. Tycoon Capital) */
+  [hidden]{display:none !important;}
   body{font-family:var(--fb);color:var(--white);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden;
     background:radial-gradient(1100px 700px at 50% -10%,#12305c 0%,transparent 55%),linear-gradient(180deg,#0A1F44,#060F26 60%,#04081A);
     background-attachment:fixed;min-height:100vh;}
