@@ -4,6 +4,8 @@
         <img src="{{ asset('images/logo.png') }}" alt="Tycoon Duro Inc." class="nav__logo" />
       </a>
 
+      <div class="nav__backdrop" id="navBackdrop" aria-hidden="true"></div>
+
       <nav class="nav__links" id="navLinks" aria-label="Primary">
         <a href="{{ route('division.personal') }}">Personal Credit</a>
         <a href="{{ route('division.business') }}">Business Credit</a>

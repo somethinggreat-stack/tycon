@@ -50,20 +50,34 @@
   /* ---------- Mobile menu ---------- */
   var toggle = document.getElementById('navToggle');
   var links = document.getElementById('navLinks');
-  function closeMenu() {
+  var backdrop = document.getElementById('navBackdrop');
+
+  function setMenu(open) {
     if (!links) return;
-    links.classList.remove('open');
-    toggle.classList.remove('active');
-    toggle.setAttribute('aria-expanded', 'false');
+    links.classList.toggle('open', open);
+    toggle.classList.toggle('active', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+    if (backdrop) backdrop.classList.toggle('show', open);
+    // stop the page scrolling behind the open panel
+    document.body.style.overflow = open ? 'hidden' : '';
   }
+  function closeMenu() { setMenu(false); }
+
   if (toggle && links) {
     toggle.addEventListener('click', function () {
-      var open = links.classList.toggle('open');
-      toggle.classList.toggle('active', open);
-      toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+      setMenu(!links.classList.contains('open'));
     });
     links.querySelectorAll('a').forEach(function (a) {
       a.addEventListener('click', closeMenu);
+    });
+    if (backdrop) backdrop.addEventListener('click', closeMenu);
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closeMenu();
+    });
+    // a resize back to desktop must not leave the body locked
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 900 && links.classList.contains('open')) closeMenu();
     });
   }
 

@@ -220,6 +220,14 @@ body::after {
 }
 .nav__cta:hover { transform: translateY(-2px); box-shadow: 0 20px 46px -16px rgba(201,162,39,.6); }
 
+/* dims the page behind the mobile menu; inside .nav so it inherits its stacking context */
+.nav__backdrop {
+  display: none; position: fixed; inset: 0; z-index: 1;
+  background: rgba(3,6,15,0.62); backdrop-filter: blur(3px);
+  opacity: 0; pointer-events: none; transition: opacity .45s var(--ease);
+}
+.nav__backdrop.show { opacity: 1; pointer-events: auto; }
+
 .nav__toggle { display: none; flex-direction: column; gap: 5px; padding: 8px; z-index: 20; }
 .nav__toggle span { width: 26px; height: 2px; background: var(--white); border-radius: 2px; transition: .35s var(--ease); }
 .nav__toggle.active span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
@@ -1565,25 +1573,54 @@ body::after {
   .method { grid-template-columns: 1fr 1fr; gap: 18px; }
   .difference__cards { grid-template-columns: 1fr 1fr; }
 
+  /* --nav-h = real header height (nav padding + logo). The menu's top padding is
+     derived from it, so the panel can never overlap or gap from the header. */
+  .nav { --nav-h: 96px; }
+  .nav.scrolled { --nav-h: 78px; }
+
+  .nav__backdrop { display: block; }
+
   /* nav → drops down from the top, clearing the fixed header */
   .nav__links {
-    position: fixed; top: 0; left: 0; right: 0; width: auto;
-    border-radius: 0 0 20px 20px;
-    flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 6px;
-    padding: 92px 18px 24px;
-    background: rgba(6,15,38,0.98); backdrop-filter: blur(20px);
+    position: fixed; top: 0; left: 0; right: 0; width: auto; z-index: 2;
+    border-radius: 0 0 22px 22px;
+    flex-direction: column; align-items: stretch; justify-content: flex-start; gap: 0;
+    padding: calc(var(--nav-h) + 10px) 16px 22px;
+    background: linear-gradient(180deg, rgba(8,20,48,0.99), rgba(6,15,38,0.99));
+    backdrop-filter: blur(20px);
     border: 1px solid var(--line-soft); border-top: 0;
     box-shadow: 0 34px 70px -26px rgba(0,0,0,0.85);
     max-height: 100vh; overflow-y: auto;
-    transform: translateY(-100%); transition: transform .5s var(--ease);
+    transform: translateY(-101%); transition: transform .5s var(--ease);
   }
   .nav__links.open { transform: translateY(0); }
   /* keep the logo above the panel — it drops over the header, and only the
      toggle carries a z-index, so the brand would otherwise be covered */
   .nav__brand { position: relative; z-index: 20; }
-  .nav__links > a { width: 100%; font-size: 1.05rem; padding: 14px 16px; text-align: center; }
-  .nav__cta { margin-left: 0; margin-top: 14px; text-align: center; justify-content: center; }
-  .nav__toggle { display: flex; }
+
+  /* full-width tap rows with a chevron, instead of loose centred text */
+  .nav__links > a:not(.nav__cta) {
+    display: flex; align-items: center; justify-content: space-between;
+    width: 100%; font-size: 1.06rem; font-weight: 600; color: var(--white);
+    padding: 17px 8px; border-radius: 0; text-align: left;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .nav__links > a:not(.nav__cta)::after {
+    content: '→'; color: var(--gold-bright); font-size: 1rem; opacity: .75;
+    transition: transform .3s var(--ease);
+  }
+  .nav__links > a:not(.nav__cta):active { background: rgba(201,162,39,0.10); }
+  .nav__links > a:not(.nav__cta):active::after { transform: translateX(4px); }
+  .nav__cta {
+    margin-left: 0; margin-top: 20px; text-align: center;
+    display: flex; align-items: center; justify-content: center;
+    min-height: 52px; padding: 14px 20px; font-size: 1.02rem; border-radius: 100px;
+  }
+  /* 44px minimum tap target — the bars alone only came to 32px tall */
+  .nav__toggle {
+    display: flex; align-items: center; justify-content: center;
+    min-width: 44px; min-height: 44px; padding: 8px;
+  }
 }
 
 /* ===== Trim section padding on smaller tablets/phones ===== */
@@ -1595,9 +1632,12 @@ body::after {
 /* ===== Mobile ===== */
 @media (max-width: 560px) {
   .container { padding: 0 18px; }
-  /* logo is 2.26:1 — only ever constrain height, never both dimensions */
-  .nav__logo { height: 50px; width: auto; }
-  .nav.scrolled .nav__logo { height: 44px; }
+  /* Logo is 2.26:1 and the wordmark is only ~26% of the ink, so it goes
+     unreadable when scaled down — keep it big. Only ever constrain height. */
+  .nav__logo { height: 62px; width: auto; }
+  .nav.scrolled .nav__logo { height: 52px; }
+  .nav { --nav-h: 86px; }        /* 12px padding x2 + 62px logo */
+  .nav.scrolled { --nav-h: 74px; }  /* 11px padding x2 + 52px logo */
   .section-lead { font-size: 1rem; }
   .cta__form { grid-template-columns: 1fr; }
   .difference__cards { grid-template-columns: 1fr; }
