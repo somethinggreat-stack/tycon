@@ -1,0 +1,26 @@
+---
+deployment:
+  tasks:
+    # Deploy target = the domain's document root (cPanel user: nsts8cfzsghe).
+    # The root .htaccess rewrites every request into public/, so Laravel is
+    # served from public_html/public while the code sits in public_html.
+    - export DEPLOYPATH=/home/nsts8cfzsghe/public_html
+    - /bin/mkdir -p $DEPLOYPATH
+
+    # Application code. Listed explicitly so that .env, storage/ (client
+    # uploads, logs, sessions) and vendor/ on the server are never touched.
+    - /bin/cp -R app bootstrap config database public resources routes $DEPLOYPATH
+    - /bin/cp artisan composer.json composer.lock package.json vite.config.js $DEPLOYPATH
+
+    # Root rewrite rules (a dotfile, so it needs its own copy line).
+    - /bin/cp .htaccess $DEPLOYPATH/.htaccess
+
+    # Writable dirs, in case a new sub-directory arrived with this deploy.
+    - /bin/chmod -R 775 $DEPLOYPATH/storage $DEPLOYPATH/bootstrap/cache
+
+# After a deploy that changed composer.lock, config/, routes/ or views,
+# run in cPanel -> Terminal (see DEPLOY.md):
+#   cd /home/nsts8cfzsghe/public_html
+#   composer install --no-dev --optimize-autoloader
+#   php artisan migrate --force
+#   php artisan config:cache && php artisan route:cache && php artisan view:cache
