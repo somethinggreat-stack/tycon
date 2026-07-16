@@ -49,7 +49,7 @@
       <p>We may update these Terms from time to time. Continued use of the Services after changes are posted constitutes acceptance of the revised Terms.</p>
 
       <h2>11. Contact Us</h2>
-      <p>Questions about these Terms? Reach us at <a href="mailto:Capital@tycoonduro.com">Capital@tycoonduro.com</a>, <a href="tel:+18448003211">1 (844) 800-3211</a>, or 160 W Camino Real #744, Boca Raton, FL 33432.</p>
+      <p>Questions about these Terms? Reach us at <a href="mailto:Capital@tycoonduro.com">Capital@tycoonduro.com</a>, <a href="tel:+18448003211">1 (844) 800-3211</a>, or 160 W Camino Real #444, Boca Raton, FL 33432.</p>
     </div>
   </div>
 </section>

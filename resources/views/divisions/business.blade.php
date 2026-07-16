@@ -43,39 +43,23 @@
     'leadSub'     => "Tell us about your business. We'll show you exactly how to become fundable and what capital you can realistically access — at no cost.",
     'leadCta'     => 'Request My Roadmap',
 
-    'includesTitle' => 'Everything in the Business Capital Accelerator',
+    'includesTitle' => 'Everything in Tycoon Capital™',
     'includesSub'   => 'From entity setup to lender-ready funding — the full architecture.',
     'includes' => [
-      'LLC structuring & entity foundation',
-      'EIN & business setup guidance',
+      'LLC or Corporation formation with EIN registration',
+      'Dun & Bradstreet and full business credit profile development',
+      'Net-30 vendor accounts and commercial tradeline strategy',
+      'SBA loan and business line of credit preparation',
+      'Dedicated business advisory with funding roadmap and execution support',
       'Business credit profile architecture',
-      'Vendor & tradeline strategy (Net-30 accounts)',
-      'Dun & Bradstreet & business bureau setup',
-      'Access to high-value capital solutions',
-      'Strategic funding acquisition roadmap',
       'Lender-ready documentation prep',
       'Preferred funding partner connections',
-      'Dedicated funding strategy session',
     ],
 
     'steps' => [
       ['title' => 'Structure', 'desc' => 'We set up your LLC, EIN, and entity foundation the right way — so lenders and bureaus see a legitimate, fundable business.'],
       ['title' => 'Build Profile', 'desc' => 'We establish your business credit with vendor tradelines and D&B / bureau setup, building a strong, borrowable profile.'],
       ['title' => 'Secure Funding', 'desc' => 'With lender-ready documentation, we connect you to preferred partners and pursue high-value capital and credit lines.'],
-    ],
-
-    'pricing' => [
-      'name' => 'Business Capital Accelerator',
-      'tag'  => 'Complete business credit & strategic funding.',
-      'price'=> '$750',
-      'cta'  => 'Accelerate My Capital',
-      'features' => [
-        'Everything in Strategic Credit Mastery — report cleaning included first',
-        'LLC structuring & entity foundation',
-        'Business credit profile & Net-30 tradelines',
-        'Access to high-value capital solutions',
-        'Lender-ready documentation & strategy session',
-      ],
     ],
 
     'faq' => [

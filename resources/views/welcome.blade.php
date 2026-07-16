@@ -5,12 +5,12 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <meta name="lead-endpoint" content="{{ route('lead.store') }}" />
-  <title>Tycoon Duro Inc. — God-Level Wealth Strategy | Trust the Horse</title>
-  <meta name="description" content="Tycoon Duro Inc. — Elite credit mastery, business capital acquisition, and asset protection. Founded by Stanley Durosier. Strategic. Precise. God-Level. Trust the Horse." />
+  <title>Tycoon Duro Inc. — Elite Wealth Strategy | Trust the Horse</title>
+  <meta name="description" content="Tycoon Duro Inc. — Elite credit mastery, business capital acquisition, and asset protection. Founded by Stanley Durosier. Strategic. Precise. Uncompromising. Trust the Horse." />
   <meta name="theme-color" content="#0A1F44" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Tycoon Duro Inc. — God-Level Wealth Strategy" />
+  <meta property="og:title" content="Tycoon Duro Inc. — Elite Wealth Strategy" />
   <meta property="og:description" content="Elite credit mastery, business capital, and protected wealth. Trust the Horse." />
   <meta property="og:type" content="website" />
   <meta property="og:image" content="{{ asset('images/logo.png') }}" />
@@ -59,7 +59,7 @@
           <span class="text-gold">Protect Your Empire.</span>
         </h1>
         <p class="hero__sub">
-          Tycoon Duro Inc. delivers God-Level, legally rigorous strategy across personal credit,
+          Tycoon Duro Inc. delivers uncompromising, legally rigorous strategy across personal credit,
           business capital, and financial investments — engineered for serious operators ready
           for substantial, protected results.
         </p>
@@ -101,76 +101,77 @@
       </div>
 
       <div class="tiers">
-        <!-- Program 01 -->
+        <!-- Tycoon Foundation -->
         <article class="tier reveal">
           <div class="tier__cap">
             <div class="tier__icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v5c0 4.4-3 8.3-7 9.5C8 18.3 5 14.4 5 11V6l7-3z"/><path d="m9 12 2 2 4-4"/></svg>
             </div>
             <span class="tier__label">Program 01</span>
-            <h3 class="tier__name">Strategic Credit Mastery</h3>
-            <p class="tier__tag">Advanced restoration, executed with surgical precision.</p>
+            <h3 class="tier__name">Tycoon Foundation&trade;</h3>
+            <p class="tier__tag">Build a clean, strong personal credit foundation.</p>
             <div class="tier__price">$500 <span>one-time</span></div>
           </div>
           <div class="tier__body">
+            <span class="tier__deliv">Key Deliverables</span>
             <ul class="tier__features">
-              <li><i></i> Collections, charge-offs &amp; late payments challenged</li>
-              <li><i></i> Hard inquiries removed &amp; personal info cleaned</li>
-              <li><i></i> 3-bureau dispute letters — done for you</li>
-              <li><i></i> Score optimization roadmap</li>
-              <li><i></i> Live email &amp; SMS updates</li>
+              <li><i></i> Complete personal credit profile analysis and strategic improvement plan</li>
+              <li><i></i> Full review of major credit bureaus and secondary reporting agencies</li>
+              <li><i></i> Personal information cleaning and correction</li>
+              <li><i></i> Dispute assistance for collections, charge-offs, and inquiries</li>
+              <li><i></i> Dedicated consultant with priority email and text updates</li>
             </ul>
-            <a href="{{ url('/checkout') }}?plan=credit" class="btn btn--ghost btn--block">Begin Credit Mastery</a>
+            <a href="{{ url('/checkout') }}?plan=foundation" class="btn btn--ghost btn--block">Build My Foundation</a>
           </div>
         </article>
 
-        <!-- Flagship (center) -->
+        <!-- Tycoon Elite (center) -->
         <article class="tier tier--flagship reveal" data-delay="120">
-          <span class="tier__ribbon">★ Flagship · Everything Included</span>
+          <span class="tier__ribbon">★ Most Popular · Premium Tradelines</span>
           <div class="tier__cap tier__cap--gold">
             <div class="tier__icon tier__icon--dark">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8l4 4 5-7 5 7 4-4-2 11H5L3 8z"/><path d="M5 20h14"/></svg>
             </div>
-            <span class="tier__label">The Complete System</span>
-            <h3 class="tier__name">God-Level Wealth Blueprint</h3>
-            <p class="tier__tag">Credit, capital &amp; protection — engineered together.</p>
-            <div class="tier__price">$1,000 <span>one-time</span></div>
+            <span class="tier__label">Program 02</span>
+            <h3 class="tier__name">Tycoon Elite&trade;</h3>
+            <p class="tier__tag">Enhance your profile with premium tradelines and executive strategy.</p>
+            <div class="tier__price">$750 <span>one-time</span></div>
           </div>
           <div class="tier__body">
+            <span class="tier__deliv">Key Deliverables</span>
             <ul class="tier__features">
-              <li class="is-lead"><i></i> <strong>Everything in both plans — credit &amp; business</strong></li>
-              <li><i></i> Bankruptcies, repos &amp; student loans challenged</li>
-              <li><i></i> Done-for-you by a dedicated specialist</li>
-              <li><i></i> Priority disputes — fastest turnaround</li>
-              <li><i></i> Asset protection via LLCs &amp; living trusts</li>
-              <li><i></i> Preferred funding partners &amp; credit lines</li>
+              <li><i></i> Executive-level credit audit with advanced optimization strategy</li>
+              <li><i></i> 1 Primary Tradeline (~$10K) + 1 Authorized User Tradeline (~$20K, 10+ years history)</li>
+              <li><i></i> Hard inquiry, collection, and charge-off resolution</li>
+              <li><i></i> Personalized financing roadmap for mortgage, auto, and business funding</li>
+              <li><i></i> Priority processing with dedicated executive-level support</li>
             </ul>
-            <a href="{{ url('/checkout') }}?plan=godlevel" class="btn btn--gold btn--block">Claim the Blueprint</a>
-            <p class="tier__note">For serious operators ready for substantial, protected results.</p>
+            <a href="{{ url('/checkout') }}?plan=elite" class="btn btn--gold btn--block">Go Elite</a>
+            <p class="tier__note">For operators who want a stronger profile, faster.</p>
           </div>
         </article>
 
-        <!-- Program 02 -->
+        <!-- Tycoon Capital -->
         <article class="tier reveal" data-delay="240">
           <div class="tier__cap">
             <div class="tier__icon">
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 13l5-5 4 4 7-7M20 5v5h-5"/><path d="M4 20h16"/></svg>
             </div>
-            <span class="tier__label">Program 02</span>
-            <h3 class="tier__name">Business Capital Accelerator</h3>
-            <p class="tier__tag">Complete business credit &amp; strategic funding.</p>
-            <div class="tier__price">$750 <span>one-time</span></div>
+            <span class="tier__label">Program 03</span>
+            <h3 class="tier__name">Tycoon Capital&trade;</h3>
+            <p class="tier__tag">Set up your business and access real funding.</p>
+            <div class="tier__price">$1,000 <span>one-time</span></div>
           </div>
           <div class="tier__body">
+            <span class="tier__deliv">Key Deliverables</span>
             <ul class="tier__features">
-              <li class="is-lead"><i></i> <strong>Everything in Strategic Credit Mastery, first</strong></li>
-              <li><i></i> LLC structuring, EIN &amp; entity setup</li>
-              <li><i></i> Business credit profile + Net-30 tradelines</li>
-              <li><i></i> Dun &amp; Bradstreet &amp; bureau setup</li>
-              <li><i></i> Access to high-value capital</li>
-              <li><i></i> Dedicated funding strategy session</li>
+              <li><i></i> LLC or Corporation formation with EIN registration</li>
+              <li><i></i> Dun &amp; Bradstreet and full business credit profile development</li>
+              <li><i></i> Net-30 vendor accounts and commercial tradeline strategy</li>
+              <li><i></i> SBA loan and business line of credit preparation</li>
+              <li><i></i> Dedicated business advisory with funding roadmap and execution support</li>
             </ul>
-            <a href="{{ url('/checkout') }}?plan=capital" class="btn btn--ghost btn--block">Accelerate My Capital</a>
+            <a href="{{ url('/checkout') }}?plan=capital" class="btn btn--ghost btn--block">Access Capital</a>
           </div>
         </article>
       </div>
@@ -290,7 +291,7 @@
         <article class="hpanel is-active" data-panel="pc">
           <div class="hpanel__text">
             <span class="hpanel__tag">Division 01 · Personal Credit</span>
-            <h3 class="hpanel__title">Surgical Credit Restoration</h3>
+            <h3 class="hpanel__title">Strategic Credit Restoration</h3>
             <p class="hpanel__desc">We remove the items dragging your score down — collections, charge-offs, late payments, and more — then rebuild your credit so lenders say yes.</p>
             <ul class="hpanel__list">
               <li>Remove collections &amp; charge-offs</li>
@@ -377,7 +378,7 @@
         </div>
         <div class="divrow__text">
           <span class="divrow__eyebrow">Personal Credit</span>
-          <h3>Surgical Credit Restoration</h3>
+          <h3>Strategic Credit Restoration</h3>
           <p>We remove the items dragging your score down — collections, charge-offs, late payments, and inquiries — then rebuild a profile lenders say yes to.</p>
           <ul class="divrow__list">
             <li>Remove collections &amp; charge-offs</li>
@@ -455,12 +456,12 @@
     <div class="difference__bg" aria-hidden="true"></div>
     <div class="container difference__inner">
       <div class="difference__text reveal">
-        <span class="eyebrow"><span class="eyebrow__dot"></span> The God-Level Standard</span>
+        <span class="eyebrow"><span class="eyebrow__dot"></span> The Tycoon Duro Standard</span>
         <h2 class="section-title">Why Tycoon Duro Is Different</h2>
         <p class="difference__lead">
-          Tycoon Duro Inc. operates at a God-Level standard of precision and strategic depth.
-          We deliver customized, legally rigorous strategies that combine credit restoration,
-          business capital acquisition, and asset protection into one seamless system.
+          Tycoon Duro Inc. operates at a standard of precision and strategic depth that few in this
+          industry can match. We deliver customized, legally rigorous strategies that combine credit
+          restoration, business capital acquisition, and asset protection into one seamless system.
         </p>
         <p class="difference__lead">
           We do not offer generic repair or basic advice. We provide elite-level execution and
@@ -472,7 +473,7 @@
       <div class="difference__cards">
         <div class="diff-card reveal" data-delay="0">
           <span class="diff-card__num">01</span>
-          <h4>Surgical Precision</h4>
+          <h4>Meticulous Precision</h4>
           <p>Every strategy is customized, documented, and executed with legal rigor — never templated.</p>
         </div>
         <div class="diff-card reveal" data-delay="100">
@@ -505,8 +506,11 @@
 
       <div class="whohelp__grid">
         <article class="whocard reveal">
-          <div class="whocard__media">
-            <img src="{{ asset('images/help-home.jpg') }}" alt="Future homeowners getting approved" loading="lazy" />
+          <div class="whocard__media whocard__media--art">
+            <span class="whocard__pattern" aria-hidden="true"></span>
+            <span class="whocard__glyph" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 10.5 12 3l9 7.5"/><path d="M5.5 9.5V20a1 1 0 0 0 1 1h11a1 1 0 0 0 1-1V9.5"/><path d="M10 21v-6h4v6"/></svg>
+            </span>
             <span class="whocard__badge">Personal Credit</span>
           </div>
           <div class="whocard__body">
@@ -516,8 +520,11 @@
         </article>
 
         <article class="whocard reveal" data-delay="120">
-          <div class="whocard__media">
-            <img src="{{ asset('images/help-business.jpg') }}" alt="Entrepreneurs and business builders" loading="lazy" />
+          <div class="whocard__media whocard__media--art">
+            <span class="whocard__pattern" aria-hidden="true"></span>
+            <span class="whocard__glyph" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 9h.01M15 9h.01M9 13h.01M15 13h.01M9 17h.01M15 17h.01"/></svg>
+            </span>
             <span class="whocard__badge">Business Credit</span>
           </div>
           <div class="whocard__body">
@@ -527,8 +534,11 @@
         </article>
 
         <article class="whocard reveal" data-delay="240">
-          <div class="whocard__media">
-            <img src="{{ asset('images/help-family.jpg') }}" alt="Families building generational wealth" loading="lazy" />
+          <div class="whocard__media whocard__media--art">
+            <span class="whocard__pattern" aria-hidden="true"></span>
+            <span class="whocard__glyph" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7.5 3.2v5.1c0 4.7-3.2 8.9-7.5 10.2-4.3-1.3-7.5-5.5-7.5-10.2V6.2z"/><path d="m9 12 2 2 4.2-4.2"/></svg>
+            </span>
             <span class="whocard__badge">Financial Investments</span>
           </div>
           <div class="whocard__body">
@@ -588,7 +598,7 @@
           </div>
           <span class="mcard__phase">Phase 03</span>
           <h4>Elite Execution</h4>
-          <p>We deploy the frameworks with surgical precision — restoring credit, structuring entities, and securing funding.</p>
+          <p>We deploy the frameworks with meticulous precision — restoring credit, structuring entities, and securing funding.</p>
           <span class="mcard__bar"></span>
         </article>
 
@@ -660,10 +670,10 @@
         </div>
         <div class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">
-            <span>What's included in the God-Level Wealth Blueprint?</span>
+            <span>Which program is right for me?</span>
             <i class="faq__icon" aria-hidden="true"></i>
           </button>
-          <div class="faq__a"><p>Everything — full credit restoration, complete business credit &amp; funding, and asset protection through LLCs and living trusts. It's our entire system, done for you, with a dedicated specialist on your case.</p></div>
+          <div class="faq__a"><p>Start with Tycoon Foundation&trade; if your personal report needs cleaning up. Choose Tycoon Elite&trade; if you want premium tradelines and an executive optimization strategy on top of that. Choose Tycoon Capital&trade; if your focus is forming the business and accessing real funding. Not sure? Book a free call and we'll tell you honestly.</p></div>
         </div>
         <div class="faq__item">
           <button class="faq__q" type="button" aria-expanded="false">

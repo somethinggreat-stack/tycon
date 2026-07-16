@@ -2,7 +2,7 @@
     <div class="container footer__inner">
       <div class="footer__brand">
         <img src="{{ asset('images/logo.png') }}" alt="Tycoon Duro Inc." class="footer__logo" />
-        <p class="footer__tag">Strategic. Precise. God-Level.<br /><span class="text-gold">Trust the Horse.</span></p>
+        <p class="footer__tag">Strategic. Precise. Uncompromising.<br /><span class="text-gold">Trust the Horse.</span></p>
       </div>
 
       <div class="footer__col">
@@ -14,16 +14,16 @@
 
       <div class="footer__col">
         <h5>Programs</h5>
-        <a href="{{ route('home') }}#services">Strategic Credit Mastery</a>
-        <a href="{{ route('home') }}#services">Business Capital Accelerator</a>
-        <a href="{{ route('home') }}#services">God-Level Wealth Blueprint</a>
+        <a href="{{ route('home') }}#services">Tycoon Foundation&trade;</a>
+        <a href="{{ route('home') }}#services">Tycoon Elite&trade;</a>
+        <a href="{{ route('home') }}#services">Tycoon Capital&trade;</a>
       </div>
 
       <div class="footer__col">
         <h5>Contact</h5>
         <a href="mailto:Capital@tycoonduro.com">Capital@tycoonduro.com</a>
         <a href="tel:+18448003211">1 (844) 800-3211</a>
-        <address>160 W Camino Real #744<br />Boca Raton, FL 33432</address>
+        <address>160 W Camino Real #444<br />Boca Raton, FL 33432</address>
       </div>
 
       <div class="footer__col">

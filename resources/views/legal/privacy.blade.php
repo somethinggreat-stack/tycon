@@ -51,7 +51,7 @@
       <p>We may update this Privacy Policy from time to time. The "Last updated" date reflects the latest revision.</p>
 
       <h2>10. Contact Us</h2>
-      <p>Questions about your privacy? Contact us at <a href="mailto:Capital@tycoonduro.com">Capital@tycoonduro.com</a>, <a href="tel:+18448003211">1 (844) 800-3211</a>, or 160 W Camino Real #744, Boca Raton, FL 33432.</p>
+      <p>Questions about your privacy? Contact us at <a href="mailto:Capital@tycoonduro.com">Capital@tycoonduro.com</a>, <a href="tel:+18448003211">1 (844) 800-3211</a>, or 160 W Camino Real #444, Boca Raton, FL 33432.</p>
     </div>
   </div>
 </section>

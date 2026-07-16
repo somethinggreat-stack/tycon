@@ -8,7 +8,7 @@
     'current' => 'financial',
     'num'   => '03',
     'tag'   => 'Division 03 · Financial Investments',
-    'plan'  => 'godlevel',
+    'plan'  => 'capital',
     'interest' => 'Financial Investments & Protection',
     'image' => 'div-financial.jpg',
     'imageAlt' => 'Financial growth and protected wealth',
@@ -64,25 +64,11 @@
       ['title' => 'Grow & Preserve', 'desc' => 'With protection in place, we position capital for disciplined, long-term, compounding growth.'],
     ],
 
-    'pricing' => [
-      'name' => 'God-Level Wealth Blueprint',
-      'tag'  => 'Credit, capital & protection — engineered together.',
-      'price'=> '$1,000',
-      'cta'  => 'Claim the Blueprint',
-      'features' => [
-        'Everything in both other divisions — all included',
-        'Asset protection via LLCs & living trusts',
-        'Done-for-you service with a dedicated specialist',
-        'Estate & succession positioning',
-        'Long-term wealth growth strategy',
-      ],
-    ],
-
     'faq' => [
       ['q' => 'What does asset protection actually do?', 'a' => 'It legally separates your personal assets from liability using LLCs and trusts, so a lawsuit or claim against one area cannot easily reach everything you own.'],
       ['q' => 'What is a revocable living trust?', 'a' => 'A structure that holds your assets, keeps them out of probate, and lets you control how they pass on — while you retain full control during your lifetime.'],
       ['q' => 'Is this only for wealthy people?', 'a' => 'No. The earlier you structure protection, the more you preserve as you grow. It is about positioning, not just current net worth.'],
-      ['q' => 'How does this connect to credit and funding?', 'a' => 'It is the final layer of the God-Level Blueprint — we protect the wealth your restored credit and business capital create.'],
+      ['q' => 'How does this connect to credit and funding?', 'a' => 'It is the final layer of the system — we protect the wealth your restored credit and business capital create. Structuring is scoped on your strategy call, alongside whichever program fits you.'],
     ],
 
     'testimonial' => [

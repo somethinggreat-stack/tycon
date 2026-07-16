@@ -1,6 +1,6 @@
 @extends('layouts.base')
 
-@section('title', 'Personal Credit Repair — Surgical Credit Restoration | Tycoon Duro Inc.')
+@section('title', 'Personal Credit Repair — Strategic Credit Restoration | Tycoon Duro Inc.')
 @section('description', 'We remove collections, charge-offs, late payments and inquiries — then rebuild your credit so lenders say yes. Legally rigorous, done for you.')
 
 @section('content')
@@ -8,7 +8,7 @@
     'current' => 'personal',
     'num'   => '01',
     'tag'   => 'Division 01 · Personal Credit',
-    'plan'  => 'credit',
+    'plan'  => 'foundation',
     'interest' => 'Personal Credit',
     'image' => 'div-personal.jpg',
     'imageAlt' => 'A confident professional who took control of their credit',
@@ -21,7 +21,7 @@
     ],
 
     'heroTitle' => 'Restore Your Credit.<br /><span class="text-gold">Command Approval.</span>',
-    'heroSub'   => 'We surgically remove collections, charge-offs, late payments, and hard inquiries — then rebuild a profile lenders say yes to. Legally rigorous. Done for you.',
+    'heroSub'   => 'We systematically remove collections, charge-offs, late payments, and hard inquiries — then rebuild a profile lenders say yes to. Legally rigorous. Done for you.',
     'heroCta'   => 'Fix My Credit',
     'heroPoints' => [
       'Free, no-obligation credit analysis',
@@ -43,7 +43,7 @@
     'leadSub'     => "Tell us where you're at. We'll map exactly what's hurting your score and how fast we can remove it — no cost, no obligation.",
     'leadCta'     => 'Send My Request',
 
-    'includesTitle' => 'Everything in Strategic Credit Mastery',
+    'includesTitle' => 'Everything in Tycoon Foundation™',
     'includesSub'   => 'A complete, compliance-based restoration system — not generic repair.',
     'includes' => [
       'Late payments challenged',
@@ -64,20 +64,6 @@
       ['title' => 'Free Analysis', 'desc' => 'We review all three bureau reports and pinpoint every inaccurate, unverifiable item dragging your score down.'],
       ['title' => 'Strategic Disputes', 'desc' => 'We prepare and send FCRA/FDCPA-based dispute and validation letters on your behalf — round after round until items fall off.'],
       ['title' => 'Rebuild & Optimize', 'desc' => 'As negatives clear, we optimize utilization and build positive history so your score climbs and stays there.'],
-    ],
-
-    'pricing' => [
-      'name' => 'Strategic Credit Mastery',
-      'tag'  => 'Advanced restoration, executed with surgical precision.',
-      'price'=> '$500',
-      'cta'  => 'Begin Credit Mastery',
-      'features' => [
-        'Remove collections & charge-offs',
-        'Delete late payments & hard inquiries',
-        '3-bureau dispute letters done for you',
-        'Score optimization roadmap',
-        'Email & SMS status updates',
-      ],
     ],
 
     'faq' => [

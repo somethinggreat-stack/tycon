@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="csrf-token" content="{{ csrf_token() }}" />
   <meta name="lead-endpoint" content="{{ route('lead.store') }}" />
-  <title>@yield('title', 'Tycoon Duro Inc. — God-Level Wealth Strategy')</title>
+  <title>@yield('title', 'Tycoon Duro Inc. — Elite Wealth Strategy')</title>
   <meta name="description" content="@yield('description', 'Tycoon Duro Inc. — Elite credit mastery, business capital acquisition, and asset protection.')" />
   <meta name="theme-color" content="#0A1F44" />
 

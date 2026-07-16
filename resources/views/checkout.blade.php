@@ -152,7 +152,7 @@
   <section class="chero">
     <div class="chero-badges">
       <span class="cbadge">👑 Founded by Stanley Durosier</span>
-      <span class="cbadge">★ God-Level Standard</span>
+      <span class="cbadge">★ The Tycoon Duro Standard</span>
       <span class="cbadge">🔒 Bank-Level Security</span>
     </div>
     <h1 id="heroTitle">Let's Get<br /><span>You Started.</span></h1>
@@ -220,8 +220,8 @@
       <div class="summary">
         <div class="sum-head">
           <span class="sum-flag" id="sumFlag">Your Program</span>
-          <h3 id="sumName">Strategic Credit Mastery</h3>
-          <p id="sumTag">Advanced restoration, executed with surgical precision.</p>
+          <h3 id="sumName">Tycoon Foundation&trade;</h3>
+          <p id="sumTag">Build a clean, strong personal credit foundation.</p>
         </div>
         <div class="sum-body">
           <ul class="sum-feat" id="sumFeat"></ul>
@@ -235,7 +235,7 @@
           <div class="err" id="err"></div>
           <div class="guarantee">
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2 4 5v6c0 5 3.4 8.5 8 10 4.6-1.5 8-5 8-10V5z"/><path d="M9 12l2 2 4-4"/></svg>
-            <span>God-Level execution, backed by a real strategic partnership. Trust the Horse.</span>
+            <span>Elite execution, backed by a real strategic partnership. Trust the Horse.</span>
           </div>
         </div>
       </div>
@@ -258,28 +258,30 @@
     "use strict";
     var CHK = "✓";
     var PLANS = {
-      credit: {
-        flag:"Program 01", name:"Strategic Credit Mastery", tag:"Advanced restoration, executed with surgical precision.",
-        feat:["Comprehensive legal dispute frameworks","Professional documentation & escalation","Lasting removal of inaccurate items","Score optimization roadmap"],
-        lines:[["Strategic Credit Mastery","$500.00"]], total:"$500.00", amountNum:"500.00", note:"One-time program payment. No hidden fees.",
-        hero:["Begin Your","Credit Mastery."], sub:"Advanced, surgical credit restoration — engineered for lasting removal and a profile that commands approval.", score:true
+      foundation: {
+        flag:"Program 01", name:"Tycoon Foundation™", tag:"Build a clean, strong personal credit foundation.",
+        feat:["Complete personal credit profile analysis and strategic improvement plan","Full review of major credit bureaus and secondary reporting agencies","Personal information cleaning and correction","Dispute assistance for collections, charge-offs, and inquiries","Dedicated consultant with priority email and text updates"],
+        lines:[["Tycoon Foundation™","$500.00"]], total:"$500.00", amountNum:"500.00", note:"One-time program payment. No hidden fees.",
+        hero:["Build Your","Foundation."], sub:"A clean, strong personal credit foundation — analyzed, corrected, and rebuilt with a dedicated consultant on your file.", score:true
+      },
+      elite: {
+        flag:"★ Most Popular", name:"Tycoon Elite™", tag:"Enhance your profile with premium tradelines and executive strategy.",
+        feat:["Executive-level credit audit with advanced optimization strategy","1 Primary Tradeline (~$10K) + 1 Authorized User Tradeline (~$20K, 10+ years history)","Hard inquiry, collection, and charge-off resolution","Personalized financing roadmap for mortgage, auto, and business funding","Priority processing with dedicated executive-level support"],
+        lines:[["Tycoon Elite™","$750.00"]], total:"$750.00", amountNum:"750.00", note:"One-time program payment. No hidden fees.",
+        hero:["Go","Elite."], sub:"Premium tradelines and an executive optimization strategy — engineered for a profile that commands approval.", score:true
       },
       capital: {
-        flag:"Program 02", name:"Business Capital Accelerator", tag:"Complete business credit & strategic funding.",
-        feat:["LLC structuring & entity foundation","Business credit profile architecture","Access to high-value capital solutions","Strategic funding acquisition"],
-        lines:[["Business Capital Accelerator","$750.00"]], total:"$750.00", amountNum:"750.00", note:"One-time program payment. No hidden fees.",
-        hero:["Accelerate","Your Capital."], sub:"Business credit architecture and strategic funding — structured to scale with your vision.", score:false
-      },
-      godlevel: {
-        flag:"★ Flagship", name:"God-Level Wealth Blueprint", tag:"The complete elite system — nothing left on the table.",
-        feat:["Full Strategic Credit Mastery","Complete Business Funding Strategy","Asset protection via LLCs & living trusts","The full God-Level Funding Playbook","Strategic partnership & elite execution"],
-        lines:[["God-Level Wealth Blueprint","$1,000.00"],["You save","$250.00"]], total:"$1,000.00", amountNum:"1000.00", note:"One-time payment for the complete system. Best value.",
-        hero:["Claim The","God-Level Blueprint."], sub:"The complete elite system — credit, capital and protection, engineered together for substantial, protected results.", score:true
+        flag:"Program 03", name:"Tycoon Capital™", tag:"Set up your business and access real funding.",
+        feat:["LLC or Corporation formation with EIN registration","Dun & Bradstreet and full business credit profile development","Net-30 vendor accounts and commercial tradeline strategy","SBA loan and business line of credit preparation","Dedicated business advisory with funding roadmap and execution support"],
+        lines:[["Tycoon Capital™","$1,000.00"]], total:"$1,000.00", amountNum:"1000.00", note:"One-time program payment. No hidden fees.",
+        hero:["Access Real","Capital."], sub:"Your entity formed, your business credit built, and your funding roadmap executed — with a dedicated advisory team.", score:false
       }
     };
     function esc(s){ return String(s==null?"":s).replace(/[&<>"']/g,function(c){return {"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[c];}); }
-    var key = (new URLSearchParams(location.search).get("plan")||"credit").toLowerCase();
-    var p = PLANS[key] || PLANS.credit;
+    // Legacy slugs from older links, ads and bookmarks still resolve to the closest current program.
+    var ALIASES = { credit:"foundation", godlevel:"capital", blueprint:"capital" };
+    var key = (new URLSearchParams(location.search).get("plan")||"foundation").toLowerCase();
+    var p = PLANS[key] || PLANS[ALIASES[key]] || PLANS.foundation;
 
     document.getElementById("sumFlag").textContent = p.flag;
     document.getElementById("sumName").textContent = p.name;

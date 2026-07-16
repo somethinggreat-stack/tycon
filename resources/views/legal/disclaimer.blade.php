@@ -32,7 +32,7 @@
       <p>To the fullest extent permitted by law, Tycoon Duro disclaims liability for any loss or damage arising from reliance on information or results discussed on this site. Your use of our Services is also governed by our <a href="{{ route('legal.terms') }}">Terms of Service</a> and <a href="{{ route('legal.privacy') }}">Privacy Policy</a>.</p>
 
       <h2>7. Contact Us</h2>
-      <p>Questions about this Disclaimer? Contact us at <a href="mailto:Capital@tycoonduro.com">Capital@tycoonduro.com</a>, <a href="tel:+18448003211">1 (844) 800-3211</a>, or 160 W Camino Real #744, Boca Raton, FL 33432.</p>
+      <p>Questions about this Disclaimer? Contact us at <a href="mailto:Capital@tycoonduro.com">Capital@tycoonduro.com</a>, <a href="tel:+18448003211">1 (844) 800-3211</a>, or 160 W Camino Real #444, Boca Raton, FL 33432.</p>
     </div>
   </div>
 </section>
