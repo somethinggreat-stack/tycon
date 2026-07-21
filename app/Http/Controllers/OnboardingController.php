@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Onboarding;
 use App\Services\ApexService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 
 class OnboardingController extends Controller
@@ -66,9 +67,19 @@ class OnboardingController extends Controller
 
         $client = Onboarding::create($data);
 
-        // Forward the completed submission to the APEX Growth intake (New Clients)
+        // Forward the completed submission to the APEX Growth intake (New Clients).
+        // The client is already saved, so a failure here never costs us the submission —
+        // but it must be loud, or the client sits at "pending" with nobody aware.
         $apex = ApexService::sendOnboarding($client);
         $client->update(['apex_synced' => $apex['synced'], 'apex_note' => $apex['note']]);
+
+        if (! $apex['synced']) {
+            Log::error('Onboarding did NOT reach APEX — retry from the admin dashboard', [
+                'onboarding_id' => $client->id,
+                'client'        => $client->fullName(),
+                'reason'        => $apex['note'],
+            ]);
+        }
 
         return redirect()->route('onboarding.thanks')->with('onboarded', true);
     }

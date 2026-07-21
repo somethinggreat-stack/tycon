@@ -102,8 +102,15 @@ class ApexService
                 return ['synced' => false, 'note' => 'apex: 422 — '.implode('; ', array_keys($errors)), 'status' => 422, 'errors' => $errors];
             }
 
-            Log::warning('APEX intake failed', ['status' => $status, 'body' => $res->body()]);
-            return ['synced' => false, 'note' => 'apex: failed '.$status, 'status' => $status, 'errors' => []];
+            Log::error('APEX intake failed', ['status' => $status, 'body' => $res->body()]);
+            // keep a snippet of the body — "failed 500" alone gives nothing to act on
+            $snippet = trim(preg_replace('/\s+/', ' ', strip_tags((string) $res->body())));
+            return [
+                'synced' => false,
+                'note'   => 'apex: failed '.$status.($snippet !== '' ? ' — '.mb_substr($snippet, 0, 180) : ''),
+                'status' => $status,
+                'errors' => [],
+            ];
         } catch (\Throwable $e) {
             Log::error('APEX intake error', ['error' => $e->getMessage()]);
             return ['synced' => false, 'note' => 'apex: error — '.$e->getMessage(), 'status' => null, 'errors' => []];

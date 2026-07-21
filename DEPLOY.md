@@ -42,6 +42,23 @@ Domain: **tycoonduro.com** · cPanel user: **nsts8cfzsghe**
    `composer install` / `artisan cache` commands from step 4 above — **cached config is
    not refreshed by the deploy itself**, so changes will not appear until you do.
 
+## APEX intake (onboarding → "New Clients")
+Onboarding submissions are saved locally **and** pushed to APEX. If the push fails the
+client still sees the thank-you page (their data is safe), but the row shows **pending**
+in Admin → Onboarded Clients, with the reason next to it.
+
+Check the connection on the server at any time:
+```bash
+cd /home/nsts8cfzsghe/public_html
+php artisan apex:status            # config + every pending client and its reason
+php artisan apex:status --retry    # re-push them (no need to ask clients to resubmit)
+```
+Pending rows can also be re-pushed individually with the **Retry APEX** button in the dashboard.
+
+Most common cause: `APEX_ENABLED` / `APEX_API_KEY` missing from the server `.env`, which
+records `apex: disabled`. **After editing `.env`, run `php artisan config:clear`** —
+cached config ignores `.env` changes until you do.
+
 ## Verify
 - https://tycoonduro.com loads over HTTPS (enable AutoSSL if needed).
 - https://tycoonduro.com/admin/login accepts the `ADMIN_EMAIL` / `ADMIN_PASSWORD` from `.env`.

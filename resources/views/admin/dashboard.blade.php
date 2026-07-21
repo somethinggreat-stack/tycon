@@ -180,6 +180,12 @@
       <button type="button" id="searchBtn">Search</button>
     </div>
 
+    @if(session('status'))
+      <div style="margin:0 0 16px;padding:13px 16px;border-radius:12px;background:#fdf6e3;border:1px solid #e6c458;color:#5a4a10;font-weight:600">
+        {{ session('status') }}
+      </div>
+    @endif
+
     <!-- ===== DASHBOARD VIEW ===== -->
     <section class="view on" data-view="dashboard">
       <div class="banner">
@@ -330,7 +336,19 @@
                     @if($c->cm_security_answer)<div class="muted">Q: {{ $c->cm_security_answer }}</div>@endif
                   @else <span class="muted">—</span> @endif
                 </td>
-                <td><span class="badge {{ $c->apex_synced ? 'b-ok' : 'b-gold' }}">{{ $c->apex_synced ? 'synced' : 'pending' }}</span></td>
+                <td>
+                  <span class="badge {{ $c->apex_synced ? 'b-ok' : 'b-gold' }}">{{ $c->apex_synced ? 'synced' : 'pending' }}</span>
+                  @unless($c->apex_synced)
+                    {{-- the reason was always recorded but never shown, so "pending" looked causeless --}}
+                    @if($c->apex_note)
+                      <div class="muted" style="margin-top:6px;max-width:230px;font-size:11px;line-height:1.4" title="{{ $c->apex_note }}">{{ $c->apex_note }}</div>
+                    @endif
+                    <form method="POST" action="{{ route('admin.onboarding.apex', $c->id) }}" style="margin-top:6px">
+                      @csrf
+                      <button type="submit" class="badge" style="cursor:pointer;border:0;font:inherit;font-size:11px">Retry APEX ↻</button>
+                    </form>
+                  @endunless
+                </td>
                 <td class="muted" style="white-space:nowrap">{{ $c->created_at?->format('M j, g:ia') }}</td>
               </tr>
             @empty

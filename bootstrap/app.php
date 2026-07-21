@@ -5,6 +5,11 @@ use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
 
 return Application::configure(basePath: dirname(__DIR__))
+    // Registered explicitly: withRouting(commands: …) registers routes/console.php as a
+    // command *route file*, which leaves app/Console/Commands unscanned.
+    ->withCommands([
+        App\Console\Commands\ApexRetry::class,
+    ])
     ->withRouting(
         web: __DIR__.'/../routes/web.php',
         commands: __DIR__.'/../routes/console.php',

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Lead;
 use App\Models\Onboarding;
 use App\Models\Order;
+use App\Services\ApexService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Storage;
@@ -93,6 +94,28 @@ class AdminController extends Controller
         $latestLeads  = $leads->take(6);
 
         return view('admin.dashboard', compact('leads', 'orders', 'onboardings', 'stats', 'latestOrders', 'latestLeads', 'now'));
+    }
+
+    /** Re-push a client to APEX after a failed sync, without asking them to resubmit. */
+    public function retryApex(Onboarding $onboarding)
+    {
+        if ($onboarding->apex_synced) {
+            return back()->with('status', $onboarding->fullName().' is already synced to APEX.');
+        }
+
+        if (! ApexService::enabled()) {
+            return back()->with('status', 'APEX is not configured on this server — nothing was sent. Run: php artisan apex:status');
+        }
+
+        $result = ApexService::sendOnboarding($onboarding);
+        $onboarding->update([
+            'apex_synced' => $result['synced'],
+            'apex_note'   => $result['note'],
+        ]);
+
+        return back()->with('status', $result['synced']
+            ? $onboarding->fullName().' pushed to APEX successfully.'
+            : 'APEX push failed again — '.$result['note']);
     }
 
     /** Stream a private onboarding document to the admin. */
