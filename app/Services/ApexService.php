@@ -62,7 +62,13 @@ class ApexService
         $disk = Storage::disk('local');
         $http = Http::timeout(30)->withHeaders([
             'X-Intake-Key' => config('tycoon.apex.key'),
-            'Accept'       => 'application/json',
+            // "*/*" rather than "application/json": APEX (Symfony) answered 406 Not
+            // Acceptable on live submissions. Symfony runs auth before content
+            // negotiation, so a strict Accept only fails once the key is valid --
+            // which is exactly when this broke. "*/*" cannot fail negotiation.
+            'Accept'       => '*/*',
+            // default Guzzle UA is a common WAF trigger; identify ourselves plainly
+            'User-Agent'   => 'TycoonDuro-Intake/1.0 (+https://tycoonduro.com)',
         ]);
 
         // Verify TLS against a bundled CA cert (sensitive data — never skip verification)
@@ -94,6 +100,19 @@ class ApexService
             if ($status === 401) {
                 Log::warning('APEX intake 401 — invalid/missing key');
                 return ['synced' => false, 'note' => 'apex: 401 invalid key', 'status' => 401, 'errors' => []];
+            }
+
+            if ($status === 406) {
+                // Not raised by our own Accept header any more (we send */*), so a 406
+                // here means APEX rejected the request body itself — typically a WAF
+                // rule on their host reacting to the ID/SSN uploads.
+                Log::error('APEX intake 406 — request rejected by the receiving host', ['body' => $res->body()]);
+                return [
+                    'synced' => false,
+                    'note'   => 'apex: 406 — APEX rejected the request. Ask Apex to whitelist this site for the intake endpoint (usually a ModSecurity rule on their server).',
+                    'status' => 406,
+                    'errors' => [],
+                ];
             }
 
             if ($status === 422) {
