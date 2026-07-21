@@ -18,5 +18,8 @@ return [
         'enabled' => filter_var(env('APEX_ENABLED', false), FILTER_VALIDATE_BOOLEAN),
         'url'     => env('APEX_API_URL'),
         'key'     => env('APEX_API_KEY'),
+        // Optional. Only used if the main URL is blocked by a WAF (HTTP 406).
+        // Left blank it is derived from the main URL (/api/intake -> /partner-intake).
+        'url_fallback' => env('APEX_API_URL_FALLBACK'),
     ],
 ];
