@@ -50,4 +50,5 @@ Route::middleware(AdminAuth::class)->group(function () {
     Route::get('/admin', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/onboarding/{onboarding}/doc/{field}', [AdminController::class, 'downloadDoc'])->name('admin.onboarding.doc');
     Route::post('/admin/onboarding/{onboarding}/apex-retry', [AdminController::class, 'retryApex'])->name('admin.onboarding.apex');
+    Route::post('/admin/session/extend', [AdminController::class, 'extendSession'])->name('admin.session.extend');
 });

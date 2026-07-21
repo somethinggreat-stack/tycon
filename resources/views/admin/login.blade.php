@@ -25,6 +25,11 @@
   .lg button{width:100%;padding:15px;border:none;border-radius:13px;cursor:pointer;color:var(--navy-900);font-family:var(--fd);font-weight:800;font-size:.98rem;background:var(--grad-gold);box-shadow:0 16px 36px -14px rgba(201,162,39,.6);transition:transform .3s,box-shadow .3s;}
   .lg button:hover{transform:translateY(-2px);box-shadow:0 22px 46px -14px rgba(201,162,39,.8);}
   .err{color:#f87171;font-size:.85rem;margin-bottom:14px;font-weight:600;}
+  /* explains an automatic sign-out, so the redirect never reads as a glitch */
+  .note{display:flex;gap:9px;align-items:flex-start;text-align:left;color:#E6C458;font-size:.83rem;
+    line-height:1.45;font-weight:600;margin-bottom:16px;padding:11px 13px;border-radius:11px;
+    background:rgba(201,162,39,.10);border:1px solid rgba(201,162,39,.30);}
+  .note svg{width:15px;height:15px;flex-shrink:0;margin-top:1px;}
   .back{display:inline-block;margin-top:20px;color:var(--ink-faint);font-size:.82rem;}
   .back:hover{color:var(--gold-bright);}
   a{text-decoration:none;}
@@ -37,6 +42,12 @@
     <div class="eyebrow">Tycoon Duro Inc.</div>
     <h1>Admin Access</h1>
     <p>Sign in to view leads, orders &amp; revenue.</p>
+    @if (session('status'))
+      <div class="note">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 8h.01M11 12h1v4h1"/></svg>
+        <span>{{ session('status') }}</span>
+      </div>
+    @endif
     @if ($errors->any())
       <div class="err">{{ $errors->first() }}</div>
     @endif

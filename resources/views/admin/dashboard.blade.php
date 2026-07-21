@@ -19,6 +19,32 @@
     --sh:0 2px 16px rgba(20,20,40,.05);--sh-lg:0 24px 60px -34px rgba(20,20,45,.3);
   }
   *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  /* author display beats the UA [hidden] rule — without this the idle modal never hides */
+  [hidden]{display:none !important;}
+
+  /* ===== IDLE TIMEOUT ===== */
+  .idle{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;padding:20px;
+    background:rgba(10,20,45,.55);backdrop-filter:blur(6px);animation:idleIn .2s var(--ease);}
+  @keyframes idleIn{from{opacity:0}to{opacity:1}}
+  .idle-card{width:min(430px,100%);background:var(--paper);border:1px solid var(--line);border-radius:20px;
+    padding:30px 28px 26px;text-align:center;box-shadow:var(--sh-lg);animation:idleUp .28s var(--ease);}
+  @keyframes idleUp{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+  .idle-ic{width:60px;height:60px;margin:0 auto 16px;border-radius:50%;display:grid;place-items:center;
+    color:var(--navy-900);background:var(--grad-gold);box-shadow:0 12px 28px -12px rgba(201,162,39,.7);}
+  .idle-ic svg{width:28px;height:28px;}
+  .idle-card h3{font-family:var(--fd);font-size:1.3rem;font-weight:800;margin-bottom:8px;}
+  .idle-card p{color:var(--ink-2);font-size:.94rem;margin-bottom:18px;}
+  .idle-card p b{font-family:var(--fd);font-size:1.05rem;color:var(--red);font-variant-numeric:tabular-nums;}
+  .idle-bar{height:6px;border-radius:6px;background:var(--line-2);overflow:hidden;margin-bottom:20px;}
+  .idle-bar i{display:block;height:100%;width:100%;border-radius:6px;background:var(--grad-gold);transition:width 1s linear;}
+  .idle-actions{display:flex;gap:10px;}
+  .idle-actions button{flex:1;padding:13px 16px;border-radius:12px;font-family:var(--fd);font-weight:700;
+    font-size:.9rem;cursor:pointer;border:1px solid transparent;transition:all .2s var(--ease);}
+  .idle-stay{background:var(--navy);color:#fff;}
+  .idle-stay:hover{background:var(--navy-900);}
+  .idle-out{background:transparent;color:var(--ink-2);border-color:var(--line);}
+  .idle-out:hover{border-color:var(--red);color:var(--red);}
+  @media (max-width:420px){.idle-actions{flex-direction:column}}
   body{font-family:var(--fb);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.5;}
   a{text-decoration:none;color:inherit;}
   img{display:block;max-width:100%;}
@@ -434,6 +460,122 @@
     // mobile sidebar
     var mt = document.getElementById('mobToggle');
     if (mt) mt.addEventListener('click', function(){ document.getElementById('side').classList.toggle('open'); });
+  })();
+</script>
+
+<!-- ===== IDLE TIMEOUT ===== -->
+<div class="idle" id="idleModal" role="dialog" aria-modal="true" aria-labelledby="idleTitle" hidden>
+  <div class="idle-card">
+    <div class="idle-ic" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
+    </div>
+    <h3 id="idleTitle">Still there?</h3>
+    <p>You've been inactive for {{ (int) config('tycoon.admin.idle_minutes', 10) }} minutes. For security you'll be signed out in <b id="idleCount">{{ (int) config('tycoon.admin.warn_seconds', 60) }}</b> seconds.</p>
+    <div class="idle-bar"><i id="idleBar"></i></div>
+    <div class="idle-actions">
+      <button type="button" class="idle-stay" id="idleStay">Stay signed in</button>
+      <button type="button" class="idle-out" id="idleOut">Sign out now</button>
+    </div>
+  </div>
+</div>
+
+<form id="idleLogout" method="POST" action="{{ route('admin.logout') }}" hidden>@csrf<input type="hidden" name="reason" value="idle" /></form>
+
+<script>
+  (function () {
+    "use strict";
+    var IDLE_MS   = {{ (int) config('tycoon.admin.idle_minutes', 10) }} * 60 * 1000;
+    var WARN_SECS = {{ (int) config('tycoon.admin.warn_seconds', 60) }};
+    var EXTEND_URL = "{{ route('admin.session.extend') }}";
+    var LOGIN_URL  = "{{ route('admin.login') }}";
+
+    var modal = document.getElementById('idleModal');
+    var countEl = document.getElementById('idleCount');
+    var barEl = document.getElementById('idleBar');
+    var form = document.getElementById('idleLogout');
+    var token = document.querySelector('#idleLogout input[name=_token]');
+
+    // Timestamp-based rather than a rolling setTimeout: mousemove fires constantly
+    // (resetting a timer each time is wasted work), and comparing wall-clock time
+    // means a slept/suspended laptop is correctly treated as idle on wake.
+    var lastActivity = Date.now(), warnStartedAt = 0, warning = false, tickTimer = null;
+
+    function signOut() {
+      clearInterval(tickTimer);
+      form.submit();   // POST so the server clears the session properly
+    }
+
+    function showWarning() {
+      warning = true;
+      warnStartedAt = Date.now();
+      countEl.textContent = WARN_SECS;
+      barEl.style.width = '100%';
+      modal.hidden = false;
+      document.getElementById('idleStay').focus();
+
+      tickTimer = setInterval(function () {
+        var left = Math.ceil((WARN_SECS * 1000 - (Date.now() - warnStartedAt)) / 1000);
+        countEl.textContent = left > 0 ? left : 0;
+        barEl.style.width = Math.max(0, Math.min(100, (left / WARN_SECS) * 100)) + '%';
+        if (left <= 0) signOut();
+      }, 250);
+    }
+
+    function resetIdle() {
+      if (warning) return;              // only the buttons dismiss the warning
+      lastActivity = Date.now();
+    }
+
+    // single low-frequency watchdog instead of one timer per event
+    setInterval(function () {
+      if (!warning && (Date.now() - lastActivity) >= IDLE_MS) showWarning();
+    }, 1000);
+
+    function staySignedIn() {
+      clearInterval(tickTimer);
+      modal.hidden = true;
+      warning = false;
+
+      fetch(EXTEND_URL, {
+        method: 'POST',
+        headers: { 'X-CSRF-TOKEN': token.value, 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        credentials: 'same-origin'
+      }).then(function (r) {
+        if (r.status === 401) { window.location.href = LOGIN_URL; return null; }
+        return r.ok ? r.json() : null;
+      }).then(function (data) {
+        // rotate to the fresh CSRF token so later posts cannot 419
+        if (data && data.csrf) {
+          token.value = data.csrf;
+          document.querySelectorAll('input[name=_token]').forEach(function (i) { i.value = data.csrf; });
+          var meta = document.querySelector('meta[name=csrf-token]');
+          if (meta) meta.setAttribute('content', data.csrf);
+        }
+      }).catch(function () { /* offline — the timer still protects the session */ });
+
+      resetIdle();
+    }
+
+    document.getElementById('idleStay').addEventListener('click', staySignedIn);
+    document.getElementById('idleOut').addEventListener('click', signOut);
+
+    ['mousemove', 'mousedown', 'keydown', 'scroll', 'touchstart', 'click'].forEach(function (evt) {
+      window.addEventListener(evt, resetIdle, { passive: true });
+    });
+
+    // Returning to the tab after the machine slept: the countdown may be stale,
+    // so re-check with the server rather than trusting the local timer.
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState !== 'visible' || warning) return;
+      fetch(EXTEND_URL, {
+        method: 'POST',
+        headers: { 'X-CSRF-TOKEN': token.value, 'Accept': 'application/json', 'X-Requested-With': 'XMLHttpRequest' },
+        credentials: 'same-origin'
+      }).then(function (r) { if (r.status === 401) window.location.href = LOGIN_URL; })
+        .catch(function () {});
+    });
+
+    resetIdle();
   })();
 </script>
 </body>

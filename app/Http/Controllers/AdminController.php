@@ -41,10 +41,15 @@ class AdminController extends Controller
 
     public function logout(Request $request)
     {
-        $request->session()->forget('admin_ok');
+        $idle = $request->input('reason') === 'idle';
+
+        $request->session()->forget(['admin_ok', 'admin_last_seen']);
         $request->session()->invalidate();
         $request->session()->regenerateToken();
-        return redirect()->route('admin.login');
+
+        return redirect()->route('admin.login')->with('status', $idle
+            ? 'You were signed out after '.config('tycoon.admin.idle_minutes', 10).' minutes of inactivity.'
+            : 'You have been signed out.');
     }
 
     public function dashboard(Request $request)
@@ -94,6 +99,20 @@ class AdminController extends Controller
         $latestLeads  = $leads->take(6);
 
         return view('admin.dashboard', compact('leads', 'orders', 'onboardings', 'stats', 'latestOrders', 'latestLeads', 'now'));
+    }
+
+    /**
+     * Keepalive for the "Stay signed in" button.
+     * Reaching this means AdminAuth already refreshed admin_last_seen; a expired
+     * session never gets here — it returns 401 JSON, which the page acts on.
+     */
+    public function extendSession(Request $request)
+    {
+        return response()->json([
+            'ok'          => true,
+            'idle_minutes' => (int) config('tycoon.admin.idle_minutes', 10),
+            'csrf'        => csrf_token(),
+        ]);
     }
 
     /** Re-push a client to APEX after a failed sync, without asking them to resubmit. */
